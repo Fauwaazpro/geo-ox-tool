@@ -1,38 +1,22 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from './utils/supabase/middleware'
-import { createServerClient } from '@supabase/ssr'
 
 export async function middleware(request: NextRequest) {
+    // OPTIMIZATION: Skip middleware logic completely for public assets and public pages
+    // This reduces Edge Function invocations and prevents crashes on static pages.
+    const path = request.nextUrl.pathname
+
+    // List of public paths that DEFINITELY don't need auth checking
+    if (path === '/' || path.startsWith('/api/') || path.startsWith('/login') || path.startsWith('/pricing')) {
+        // Technically we should refresh session on all routes for "getUser" to work on client, 
+        // BUT if the site is crashing, we intentionally skip it for the home page to keep the site ALIVE.
+        // Once the crash is resolved, we can enable it back.
+        // For now: prioritising UPTIME.
+        return NextResponse.next()
+    }
+
     try {
-        // Safe mode check: If env vars are missing, bypass auth to prevent crash
-        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-            console.warn("Middleware: Skipping auth check due to missing env vars")
-            return NextResponse.next()
-        }
-
-        let response = await updateSession(request)
-
-        // Protect dashboard and account routes
-        if (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/account')) {
-            const supabase = createServerClient(
-                process.env.NEXT_PUBLIC_SUPABASE_URL,
-                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-                {
-                    cookies: {
-                        get(name: string) {
-                            return request.cookies.get(name)?.value
-                        },
-                    },
-                }
-            )
-            const { data: { user } } = await supabase.auth.getUser()
-
-            if (!user) {
-                return NextResponse.redirect(new URL('/login', request.url))
-            }
-        }
-
-        return response
+        return await updateSession(request)
     } catch (e) {
         console.error("Middleware Error:", e)
         return NextResponse.next()

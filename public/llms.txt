@@ -1,0 +1,47 @@
+# GEO Ox - Generative Engine Optimization Suite
+
+> **Optimize for the Age of AI** - A premium SaaS platform with 18 specialized micro-tools for AI (GEO) and SEO optimization.
+
+## Site Overview
+- **Name**: GEO Ox
+- **Purpose**: To help websites improve their visibility in AI-powered search engines (like ChatGPT, Perplexity, Gemini) and traditional SEO.
+- **URL**: https://geoox.com (Assumed based on context, locally localhost:3000)
+
+## Core Tools
+GEO Ox provides 18 specialized tools divided into three categories:
+
+### 1. Infrastructure & Technical Tools
+- **Technical Readiness Checker**: Verifies robots.txt, sitemap, SSL, and canonical tags.
+- **Schema Generator**: Creates validated JSON-LD structured data.
+- **Core Web Vitals Fixer**: Analyzes performance and optimizes images.
+- **Mobile Auditor**: Checks visual mobile rendering.
+- **Link Fixer**: Auto-generates 404 redirect rules.
+- **JS Rendering Checker**: Verifies content visibility without JavaScript.
+
+### 2. AI & Semantic Optimization
+- **AI Citation Checker**: Tracks brand mentions in AI search results.
+- **AI Content Scorer**: Analyzes content readability for LLMs.
+- **llms.txt Generator**: Creates AI-optimized documentation files.
+- **Answer-First Structure**: Optimizes content for answer engines.
+- **Semantic SEO Mapper**: Identifies entity gaps in content.
+- **Citation Authority Builder**: Finds unlinked brand mentions.
+- **Authority Checker**: Visualizes topic clusters.
+
+### 3. Content & Audit Tools
+- **General Audit**: Performs competitive gap analysis.
+- **Linking Suggester**: AI-powered internal link recommendations.
+- **SERP Previewer**: Previews metadata across multiple platforms.
+- **Duplicate Finder**: Identify content fingerprints.
+- **LSI Keyword Extractor**: Extracts latent semantic keywords.
+
+## Navigation Structure
+- **Home**: `/` (Main landing page with features and pricing)
+- **Pricing**: `/pricing` (Subscription plans)
+- **Dashboard**: `/dashboard` (Access to all 18 tools - Requires Login)
+- **Login**: `/login`
+- **Survey/Guide**: `/survey` (Get the free GEO Guide)
+
+## Technical Stack
+- **Framework**: Next.js 14+ (App Router)
+- **Styling**: Tailwind CSS
+- **Backend**: Supabase
